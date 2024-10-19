@@ -108,7 +108,7 @@ exports.signup = async (req, res) => {
 
 
 exports.emailotpverify = async (req, res) => {
-    const { number , email, emailotp , numberotp } = req.body;
+    const { email, emailotp, numberotp } = req.body;
 
     try {
         const user = await Company.findOne({ email });
@@ -117,43 +117,68 @@ exports.emailotpverify = async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
+        
         if (Date.now() > user.otpExpiry) {
             return res.status(400).json({ error: 'OTP has expired. Please request a new one.' });
         }
+
+        let emailVerified =user.isEmailVerified;
+        let phoneVerified =user.isPhoneVerified;
+
         
-        const receivedOtpemail = parseInt(emailotp.trim(), 10);
-        const receivedOtpnumber=parseInt(numberotp.trim(),10)
-
-        if (user.emailotp !== receivedOtpemail) {
-            return res.status(400).json({ error: 'Invalid OTP. Please try again.' });
+        if ( numberotp) {
+            const receivedOtpNumber = parseInt(numberotp.trim(), 10);
+            if (user.numberotp === receivedOtpNumber) {
+                user.isPhoneVerified = true; 
+                user.numberotp = null; 
+                phoneVerified = true; 
+                await user.save();
+            } else {
+                return res.status(400).json({ error: 'Invalid phone number OTP. Please try again.' });
+            }
         }
 
-        if (user.numberotp !== receivedOtpnumber) {
-            return res.status(400).json({ error: 'Invalid OTP. Please try again.' });
+       
+        if (email && emailotp) {
+            const receivedOtpEmail = parseInt(emailotp.trim(), 10);
+            if (user.emailotp === receivedOtpEmail) {
+                user.isEmailVerified = true; 
+                user.emailotp = null; 
+                emailVerified = true; 
+                await user.save();
+            } else {
+                return res.status(400).json({ error: 'Invalid email OTP. Please try again.' });
+            }
         }
 
-        user.isEmailVerified = true;
-        user.isPhoneVerified = true;
-        user.emailotp = null;
-        user.otpExpiry = null;
+        
+        if (emailVerified && phoneVerified) {
+            const token = jwt.sign(
+                { userid: user.userid },
+                process.env.JWT_SECRET,
+                { expiresIn: '1h' }
+            );
 
-        await user.save();
+            return res.json({
+                message: 'Verification successful!',
+                token: token,
+            });
+        }
+        else{
+            return res.json({
+                message: 'Verification successful! go for another',
+                // token: token,
+            });
 
-        const token = jwt.sign(
-            { userid: user.userid },
-            process.env.JWT_SECRET,
-            { expiresIn: '1h' }
-        );
 
-        return res.json({
-            message: 'Email and Number verified successfully!',
-            token: token,
-        });
+        }
+
     } catch (error) {
         console.error('EMAIL OTP VERIFY ERROR:', error);
         return res.status(500).json({ error: 'Something went wrong. Please try again later.' });
     }
 };
+
 
 exports.resendotpverify = async (req, res) => {
     const { email } = req.body;
