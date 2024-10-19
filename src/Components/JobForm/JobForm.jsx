@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import './jobForm.scss';
-import Button1 from '../Button/Button1';
+import React, { useState } from "react";
+import "./jobForm.scss";
+import Button1 from "../Button/Button1";
+import { createInterview } from "../../redux/testSlice";
+import { useDispatch } from "react-redux";
 
 const JobForm = () => {
-  const [candidate, setCandidate] = useState('');
-  const [experienceLevel, setExperienceLevel] = useState('');
-  const [jobTitle, setJobTitle] = useState('');
-  const [jobDescription, setJobDescription] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [candidate, setCandidate] = useState("");
+  const [experienceLevel, setExperienceLevel] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [jobDescription, setJobDescription] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const dispatch = useDispatch();
 
   const handleCandidateChange = (e) => {
     setCandidate(e.target.value);
@@ -25,12 +28,27 @@ const JobForm = () => {
     //   candidate,
     //   endDate,
     // });
+    dispatch(
+      createInterview({
+        jobTitle,
+        jobDescription,
+        experienceLevel,
+        endDate,
+        candidates: [
+          {
+            email: candidate,
+          },
+        ],
+      })
+    );
   };
 
   return (
     <form className="job-form">
       <div className="form-group">
-        <label htmlFor="job-title" className="job-form__label">Job Title</label>
+        <label htmlFor="job-title" className="job-form__label">
+          Job Title
+        </label>
         <input
           type="text"
           id="job-title"
@@ -41,7 +59,9 @@ const JobForm = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="job-description" className="job-form__label">Job Description</label>
+        <label htmlFor="job-description" className="job-form__label">
+          Job Description
+        </label>
         <textarea
           id="job-description"
           value={jobDescription}
@@ -51,7 +71,9 @@ const JobForm = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="experience-level" className="job-form__label">Experience Level</label>
+        <label htmlFor="experience-level" className="job-form__label">
+          Experience Level
+        </label>
         <select
           id="experience-level"
           value={experienceLevel}
@@ -67,7 +89,9 @@ const JobForm = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="candidate" className="job-form__label">Add Candidate</label>
+        <label htmlFor="candidate" className="job-form__label">
+          Add Candidate
+        </label>
         <input
           type="email"
           id="candidate"
@@ -78,7 +102,9 @@ const JobForm = () => {
       </div>
 
       <div className="form-group">
-        <label htmlFor="end-date" className="job-form__label">End Date</label>
+        <label htmlFor="end-date" className="job-form__label">
+          End Date
+        </label>
         <input
           type="date"
           id="end-date"
@@ -87,7 +113,7 @@ const JobForm = () => {
         />
       </div>
 
-      <Button1 text={"Send"} onClickFunction={() => handleSubmit()}/>
+      <Button1 text={"Send"} onClickFunction={() => handleSubmit()} />
     </form>
   );
 };
