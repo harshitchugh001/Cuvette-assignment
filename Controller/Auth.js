@@ -162,13 +162,17 @@ exports.emailotpverify = async (req, res) => {
             );
 
             return res.json({
-                message: 'Verification successful!',
+                // message: 'Verification successful!',
+                emailverified:emailVerified,
+                phoneverified:phoneVerified,
                 token: token,
             });
         }
         else{
             return res.json({
-                message: 'Verification successful! go for another',
+                // message: 'Verification successful! go for another',
+                emailverified:emailVerified,
+                phoneverified:phoneVerified,
                 // token: token,
             });
 
