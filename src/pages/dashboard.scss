@@ -1,0 +1,27 @@
+.v1-dashboard {
+  display: flex;
+  min-height: calc(100vh - 137px);
+
+  &__sidebar {
+    border-right: 1px solid black;
+    padding: 20px 20px;
+  }
+
+  &__container {
+    display: flex;
+    padding: 20px;
+    flex: 1;
+  }
+}
+
+.dashboard-wrapper {
+  .v1-navbar {
+    border-bottom: 1px solid black;
+    margin: 0;
+    padding: 47px 55px;
+  }
+
+  .button-type1 {
+    align-self: baseline;
+  }
+}

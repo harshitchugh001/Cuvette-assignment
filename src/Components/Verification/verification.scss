@@ -1,0 +1,14 @@
+.v1-verification {
+  margin: 124px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+
+  &__description {
+    color: #576474;
+    font-size: 22px;
+    width: 622px;
+  }
+}

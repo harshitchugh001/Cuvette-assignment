@@ -1,0 +1,12 @@
+.v1-navbar {
+  margin: 47px 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__cta {
+    color:  #576474;
+    font-size: 28px;
+    line-height: 36px;
+  }
+}
