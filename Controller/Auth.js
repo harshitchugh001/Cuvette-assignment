@@ -334,11 +334,10 @@ exports.tokenVerify=async(req,res)=>{
         const company = await Company.findOne({ userId: decoded.userid });
 
         if (!company) {
-            return res.status(404).json({ success : false });
-        }else{
-            return res.json(200).json({success:true})
-
-        }
+            return res.status(404).json({ success: false });
+        } else {
+            return res.status(200).json({ success: true });
+        }        
         
 
     } catch (error) {
