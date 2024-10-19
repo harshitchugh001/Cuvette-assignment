@@ -48,7 +48,7 @@ exports.jobadded = async (req, res) => {
         await Promise.all(emailPromises);
 
         
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: 'Job posted successfully and notifications sent to candidates',
             job: savedJobPosting
