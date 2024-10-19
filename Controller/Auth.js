@@ -27,7 +27,7 @@ exports.signup = async (req, res) => {
                 existingUser.numberotp = Math.floor(100000 + Math.random() * 900000).toString();
                 existingUser.otpExpiry = Date.now() + 10 * 60 * 1000;
 
-                await existingUser.save();
+                const user = await existingUser.save();
 
                 const emailData = {
                     from: process.env.EMAIL_FROM,
@@ -45,6 +45,7 @@ exports.signup = async (req, res) => {
 
                 return res.json({
                     message: `An OTP has been sent to ${email} for account activation.`,
+                    user:user
                 });
             }
         }
@@ -96,6 +97,7 @@ exports.signup = async (req, res) => {
 
         return res.json({
             message: `An OTP has been sent to ${email} and your phone number. Please check to activate your account.`,
+            user:newUser
         });
     } catch (error) {
         console.error('SIGNUP ERROR:', error);
