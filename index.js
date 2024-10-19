@@ -23,10 +23,11 @@ mongoose.connection.on("error", err => {
 const authRoutes = require('./Routes/Auth');
 const jobRoutes = require('./Routes/Job');
 // app middlewares
+app.use(cors()); 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 // JSON.parse()
-app.use(cors()); 
+
 
 
 app.get('/', (req, res) => {
