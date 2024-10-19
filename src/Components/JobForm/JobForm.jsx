@@ -82,9 +82,9 @@ const JobForm = () => {
           <option value="" disabled>
             Select Experience Level
           </option>
-          <option value="junior">Junior</option>
-          <option value="mid">Mid</option>
-          <option value="senior">Senior</option>
+          <option value="Junior">Junior</option>
+          <option value="Mid">Mid</option>
+          <option value="Senior">Senior</option>
         </select>
       </div>
 
