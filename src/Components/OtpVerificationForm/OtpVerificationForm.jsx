@@ -10,8 +10,7 @@ function OtpVerificationForm() {
   const [emailOtp, setEmailOtp] = useState("");
   const [mobileOtp, setMobileOtp] = useState("");
   const data = useSelector((state) => state?.testSlice);
-  console.log(data, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
-  
+  console.log(data, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
   const handleEmailOtpVerify = () => {
     console.log("Email OTP Verified:", emailOtp);
@@ -49,7 +48,10 @@ function OtpVerificationForm() {
           value={emailOtp}
           customState={setEmailOtp}
         />
-        <Button1 text={"Verify"} onClickFunction={() => handleEmailOtpVerify()} />
+        <Button1
+          text={"Verify"}
+          onClickFunction={() => handleEmailOtpVerify()}
+        />
 
         <InputField
           logo={"call"}
@@ -58,7 +60,10 @@ function OtpVerificationForm() {
           value={mobileOtp}
           customState={setMobileOtp}
         />
-        <Button1 text={"Verify"} onClickFunction={() => handleMobileOtpVerify()} />
+        <Button1
+          text={"Verify"}
+          onClickFunction={() => handleMobileOtpVerify()}
+        />
       </div>
     </div>
   );

@@ -1,14 +1,11 @@
 import React from "react";
 import Navbar from "../Components/Navabar/Navbar";
 import "./dashboard.scss";
-import Button1 from "../Components/Button/Button1";
 import JobForm from "../Components/JobForm/JobForm";
-import { increment } from "../redux/testSlice";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 
 function Dashboard() {
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state?.testSlice?.value);
+  // const data = useSelector((state) => state?.testSlice?.value);
 
   return (
     <div className="dashboard-wrapper">
