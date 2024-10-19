@@ -3,7 +3,7 @@ import "./signupForm.scss";
 import InputField from "../InputField/InputField";
 import Button1 from "../Button/Button1";
 import { signUp } from "../../redux/testSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function SignupForm() {
   const [name, setName] = useState("");
@@ -14,13 +14,6 @@ function SignupForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    const formData = {
-      name,
-      phone,
-      companyName,
-      companyEmail,
-      employeeSize,
-    };
     dispatch(
       signUp({
         name,
