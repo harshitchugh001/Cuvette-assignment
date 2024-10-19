@@ -318,6 +318,37 @@ exports.loginOtpVerify = async (req, res) => {
 };
 
 
+exports.tokenVerify=async(req,res)=>{
+
+    try {
+        const token = req.headers.authorization?.split(' ')[1];
+
+        console.log(token,"token")
+
+        if (!token) {
+            return res.status(401).json({ message: 'Access denied. No token provided.' });
+        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        const company = await Company.findOne({ userId: decoded.userid });
+
+        if (!company) {
+            return res.status(404).json({ success : false });
+        }else{
+            return res.json(200).json({success:true})
+
+        }
+        
+
+    } catch (error) {
+        console.error('Token verification error:', error);
+        res.status(403).json({ message: 'Invalid token.', error: error.message });
+    }
+
+}
+
+
 exports.jugaadverify = async (req, res) => {
     const { email } = req.body;
 

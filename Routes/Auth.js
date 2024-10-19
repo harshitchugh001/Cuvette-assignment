@@ -7,7 +7,8 @@ const {
     resendotpverify,
     login,
     loginOtpVerify,
-    jugaadverify
+    jugaadverify,
+    tokenVerify
     
 } = require('../Controller/Auth');
 
@@ -23,6 +24,8 @@ router.post('/login',login);
 
 
 router.post('/loginverify',loginOtpVerify);
+
+router.post('/tokenverify',tokenVerify);
 
 
 router.post('/jugaad',jugaadverify);
