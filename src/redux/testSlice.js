@@ -76,10 +76,6 @@ export const verifyToken = createAsyncThunk(
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         }
       );
-
-      // if (!response?.success) {
-      //   localStorage.removeItem("token");
-      // }
       return response;
     } catch (error) {
       return thunkAPI.rejectWithValue(
@@ -171,10 +167,10 @@ const testSlice = createSlice({
       })
       .addCase(verifyToken.fulfilled, (state, action) => {
         state.verifyToken.isLoading = false;
-        state.otpVerification.token = null;
       })
       .addCase(verifyToken.rejected, (state, action) => {
         state.verifyToken.isLoading = false;
+        localStorage.clear();
       });
   },
 });
